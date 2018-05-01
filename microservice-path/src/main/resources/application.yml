@@ -1,0 +1,7 @@
+# Points to microservice-zuul
+microservice:
+  city:
+    protocol: 'http'
+    host: 'microservice-zuul'
+    port: '8080'
+    url: '/'

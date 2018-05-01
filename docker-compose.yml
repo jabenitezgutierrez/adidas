@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  consul:
+    image: consul
+    hostname: consul
+    ports:
+      - 8400:8400
+      - 8500:8500
+      - 8600:8600
+    environment:
+      SERVICE_NAME: consul
+      SERVICE_TAGS: monitoring
+
+  microservice-city:
+    image:  adidascodingchallenge/microservice-city
+    hostname: microservice-city
+    depends_on:
+      - consul
+      - microservice-zuul
+    environment:
+      SERVICE_NAME: microservice-city
+      SERVICE_TAGS: monitoring
+
+  microservice-path:
+    image:  adidascodingchallenge/microservice-path
+    hostname: microservice-path
+    depends_on:
+      - consul
+      - microservice-zuul
+      - microservice-city
+    environment:
+      SERVICE_NAME: microservice-path
+      SERVICE_TAGS: monitoring
+
+  microservice-zuul:
+      image:  adidascodingchallenge/microservice-zuul
+      hostname: microservice-zuul
+      depends_on:
+        - consul
+      ports:
+        - 8080:8080
+      environment:
+        SERVICE_NAME: microservice-zuul
+        SERVICE_TAGS: monitoring

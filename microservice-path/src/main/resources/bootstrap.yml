@@ -1,0 +1,16 @@
+server:
+  port: 8060
+
+spring:
+  application:
+    name: microservice-path
+  cloud:
+    consul:
+      discovery:
+        prefer-ip-address: true
+      host: consul
+      port: 8500
+      config:
+        enabled: true
+        watch:
+          enabled: true
