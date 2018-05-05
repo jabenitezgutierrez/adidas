@@ -20,9 +20,8 @@ public class LocalTimeAttributeConverter implements AttributeConverter<LocalTime
         return (localTime == null ? null : Time.valueOf(localTime));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public LocalTime convertToEntityAttribute(Time time) {
-        return (time == null ? null : LocalTime.of(time.getHours(), time.getMinutes()));
+        return (time == null ? null : time.toLocalTime());
     }
 }

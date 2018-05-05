@@ -6,6 +6,7 @@ import com.adidas.codingchallenge.microservicepath.external.domain.City;
 import com.adidas.codingchallenge.microservicepath.external.domain.CityConnection;
 import com.adidas.codingchallenge.microservicepath.messages.MessagesBundle;
 import com.adidas.codingchallenge.microservicepath.service.helper.DijkstraAlgorithmHelper;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,9 +36,9 @@ public class DijkstraAlgorithmHelperImpl implements DijkstraAlgorithmHelper {
         this.cityConnections = connections;
 
         execute(cityOrigin, isLessNumberOfConnections);
-        LinkedList<City> path = getPath(cityTarget);
+        ArrayList<City> path = getPath(cityTarget);
 
-        if (path == null || path.size() == 0) {
+        if (CollectionUtils.isEmpty(path)) {
             throw new ApplicationException(String.format(this.messages.get(MessagesBundle.NO_PATH_BETWEEN_CITIES.toString()),
                     cityOrigin.getName(), cityTarget.getName()));
         } else {
@@ -126,8 +127,8 @@ public class DijkstraAlgorithmHelperImpl implements DijkstraAlgorithmHelper {
         }
     }
 
-    private LinkedList<City> getPath(City target) {
-        LinkedList<City> path = new LinkedList<>();
+    private ArrayList<City> getPath(City target) {
+        ArrayList<City> path = new ArrayList<>();
         City step = target;
 
         // check if a path exists
