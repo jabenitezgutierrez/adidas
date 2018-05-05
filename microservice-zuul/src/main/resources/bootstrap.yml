@@ -8,11 +8,12 @@ spring:
     consul:
       discovery:
         prefer-ip-address: true
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
       host: consul
       port: 8500
-  sleuth:
-      sampler:
-        percentage: 1
+#  sleuth:
+#      sampler:
+#        percentage: 1
 
 # Disable Hystrix timeout globally (for all services)
 hystrix:
